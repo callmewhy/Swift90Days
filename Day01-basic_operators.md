@@ -152,7 +152,6 @@ Ruby 中用点点点来获取 SubString 的方法很方便：
 
 
 *** 
-***
 
 ## References
 
