@@ -1,4 +1,4 @@
-# Swift 中的基本运算符
+# 空值合并运算符和区间运算符
 
 今天主要看的内容是 Swift 中的基本运算符。记录一下。
 
@@ -107,7 +107,7 @@ C# 中也有个 [`??`](http://msdn.microsoft.com/en-us/library/ms173224.aspx) �
     }
 
 
-## Substring
+## SubString
 
 Ruby 中用点点点来获取 SubString 的方法很方便：
 
@@ -118,15 +118,7 @@ Ruby 中用点点点来获取 SubString 的方法很方便：
     2.1.3 :003 > a[0..1]
      => "ab"
 
-而如果 Swift 中要获取 SubString 的话需要这样：
-
-    var str = "abcdefg"
-
-    str.substringWithRange(Range<String.Index>(start: advance(str.startIndex,2), end: str.endIndex))
-
-其中， `advance(i, n)` 等价于 `i++n`。
-
-但是任性的我们就是要用 `[1...3]` 这种方法怎么办呢？
+而 Swift 中的 ClosedInterval 是没有 subscript 的。但是任性的我们就是要用 `[1...3]` 这种方法怎么办呢？
 自己动手丰衣足食，写个 extension 吧，只需要加个 `subscript` 就可以了，然后下标的类型是 `Range<Int>` 就可以了：
 
     extension String {
@@ -160,8 +152,9 @@ Ruby 中用点点点来获取 SubString 的方法很方便：
 
 
 *** 
+***
 
-References
+## References
 
 - [Swift Operators](http://nshipster.com/swift-operators/)
 - [Does Swift have a null coalescing operator](http://stackoverflow.com/questions/24082959/does-swift-have-a-null-coalescing-operator-and-if-not-what-is-an-example-of-a-c)
