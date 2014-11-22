@@ -12,7 +12,7 @@
 
     helloWithName("Mr. Roboto", 5, "San Francisco")
 
-但是分装在类 (或者结构、枚举) 中的时候，会自动分配外部变量名 (第一个除外) ，这时候如果还想直接调用就会报错了：
+但是在类 (或者结构、枚举) 中的时候，会自动分配外部变量名 (第一个除外) ，这时候如果还想直接调用就会报错了：
 
     class MyFunClass {  
         func helloWithName(name: String, age: Int, location: String) {
