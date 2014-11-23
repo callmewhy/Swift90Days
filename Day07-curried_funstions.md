@@ -150,7 +150,28 @@
 
 ### 柯学手段：通过柯里化实现
 
-和前面的例子不一样的是，柯里化的函数返回一个新的函数而不是计算后的结果。计算后的结果要通过返回的新函数计算获得：
+和前面的例子不一样的是，柯里化的函数返回一个新的函数而不是计算后的结果，计算后的结果要通过返回的新函数计算获得。
+
+
+比如前面的那个例子，我们新定义一个 `add` 函数，它有一个参数，是步长 `b` 。然后它返回一个新的函数 `newAdd` ，新的函数需要一个参数，也就是 `a`，完整的代码如下：
+
+    func add(b:Int) -> (Int->Int){
+        func newAdd(a:Int) -> Int {
+            return a + b ;
+        }
+        return newAdd
+    }
+
+    let addOne = add(1)
+    let addTwo = add(2)
+
+    var a = 0
+
+    a = addOne(a)    // 1
+    a = addTwo(a)    // 3
+    a = add(2)(3)    // 5
+
+如果你觉得各种 `(Int)->(Int->Int)` 看的晕乎，你也可以参照[官方文档](https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/Declarations.html)，用下面这种简化的声明：
 
     func add(b:Int)(a:Int) -> Int{
         return a + b ;
