@@ -105,6 +105,21 @@ Swift 有一些 [Higher Order Functions](http://www.weheartswift.com/higher-orde
     println(filteredArray) // [45, 32]
 
 
+（靠。。居然忘了贴 `filter` 的用法，写到后面才发现。。）
+
+用 `filter` 可以这样实现：
+
+    var oldArray = [10,20,45,32]
+    var filteredArray  = oldArray.filter({
+        return $0 > 30
+    })
+
+    println(filteredArray) // [45, 32]
+
+你真的好短啊！
+
+
+
 ### reduce
 
 `reduce` 函数解决了把数组中的值整合到某个独立对象的问题。定义如下：
