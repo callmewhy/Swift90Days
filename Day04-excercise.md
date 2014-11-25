@@ -51,10 +51,8 @@
     var user3 = User(name: "WHY3", age: 24)
     var user4 = User(name: "WHY4", age: 25)
     var users = [user1,user2,user3,user4]
-    var names: [String] = []
-    users.map({(user:User) in names.append(user.name!)})
+    var names = users.map({(user:User) in user.name!})
     println(names) // [WHY1, WHY2, WHY3, WHY4]
-
 
 
 
