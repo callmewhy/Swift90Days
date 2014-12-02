@@ -150,6 +150,50 @@ Swift 有一些 [Higher Order Functions](http://www.weheartswift.com/higher-orde
 
 
 
+## map 用来解包可选类型
+
+我们在解包可选类型的时候，通常会这么做：
+
+    func increment(someNumber: Int?) -> Int? {
+        if let number = someNumber {
+            return number + 1
+        } else {
+            return nil
+        }
+    }
+     
+    increment(5)   // Some 6
+    increment(nil) // nil
+
+
+我们也可以用 map 来实现：
+
+    func increment(someNumber: Int?) -> Int? {
+        return someNumber.map { number in number + 1 }
+    }
+     
+    increment(5)   // Some 6
+    increment(nil) // nil
+
+包括其他可选类型也是可行的，比如 String ：
+
+    func hello(someName: String?) -> String? {
+        return someName.map { name in "Hello, \(name)"}
+    }
+     
+    hello("NatashaTheRobot") // Some "Hello, NatashaTheRobot"
+    hello(nil) // nil
+
+再搭配上 `??` 符号，嗯基本够用了：
+
+    func hello(someName: String?) -> String {
+        return someName.map { name in "Hello, \(name)" } ?? "Hello world!"
+    }
+
+    hello("NatashaTheRobot") // "Hello, NatashaTheRobot"
+    hello(nil)               // "Hello world!"
+
+
 
 ## 扩展
 
@@ -168,3 +212,4 @@ Swift 有一些 [Higher Order Functions](http://www.weheartswift.com/higher-orde
 - [ExSwift/Array.swift](https://github.com/pNre/ExSwift/blob/master/ExSwift/Array.swift)
 - [Higher Order Functions: Map, Filter, Reduce and more – Part 1](http://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
 - [{(Int)} is not identical to UInt8](http://stackoverflow.com/questions/25162729/int-is-not-identical-to-uint8)
+- [Swift: Using Map to Deal with Optionals](http://natashatherobot.com/swift-using-map-to-deal-with-optionals/)
