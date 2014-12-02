@@ -83,7 +83,109 @@
     map(str, { "$\($0)"})
     reduce(str,"",{ "\($0)-\($1)" })
 
+## 获取字符串的范围
 
+我们可以通过 `indices` 返回字符串的范围：
+
+    var str = "Hello, why"
+    indices(str)    // 0..<10
+
+`indices` 函数定义如下，只要是集合类型的作为入参即可：
+
+    func indices<C : CollectionType>(x: C) -> Range<C.Index>
+
+
+## 是否包含
+
+可以通过 `contains` 检查是否包含子串：
+
+    contains("Hello", "e")  // true
+
+定义如下：
+
+    func contains<S : SequenceType where S.Generator.Element : Equatable>(seq: S, x: S.Generator.Element) -> Bool
+
+只要元素是 `Equatable` 的，都可以通过 `contains` 检查序列中是否存在这个元素。比如数组：
+
+    contains([1,2,3], 5)  // false
+
+
+
+## 组合实现逆序
+
+我们可以通过各种组合快速实现字符串逆序的功能：
+
+    var str = "Hello, why"
+    var revStr = ""
+    for _ in str {
+        revStr.append(last(str)!)
+        str = dropLast(str)
+    }
+    println(revStr) // yhw ,olleH
+
+当然你也可以直接用 `reserve` 函数：
+
+    var str = "Hello, why"
+    reverse(str)
+
+
+## 组合实现查找子串
+
+我们可以通过一套组合拳实现子串的查找：
+
+    extension String {
+        // 返回子串的搜索结果，返回 Range 的数组
+        func rangesOfString(findStr:String) -> [Range<String.Index>] {
+            // 存储返回的结果
+            var arr = [Range<String.Index>]()
+            // 存储开始的位置
+            var startIndex = self.startIndex
+            // 如果包含子串的第一个字符
+            if contains(self, first(findStr)!) {
+                // 获取起始位置
+                startIndex = find(self,first(findStr)!)!
+                // 初始化计数
+                var i = distance(self.startIndex, startIndex)
+                // 当 i 小于可能值的时候 (等于情况是边界条件，即刚好子串出现在最后)
+                while i <= countElements(self) - countElements(findStr) {
+                    // 按照子串的长度截取子串
+                    var tempStr = self[advance(self.startIndex, i)..<advance(self.startIndex, i+countElements(findStr))]
+                    // 如果子串匹配成功
+                    if tempStr == findStr {
+                        // 存储结果
+                        arr.append(Range(start:advance(self.startIndex, i),end:advance(self.startIndex, i+countElements(findStr))))
+                        // 将计数器位置推进到匹配结果的尾部继续匹配
+                        i = i+countElements(findStr)
+                    }
+                    i++
+                }
+            }
+            return arr
+        }
+    }
+
+
+    "hello, why hello".rangesOfString("hello")  // [0..<5,11..<16]
+
+
+
+## 精子符号 ~>
+
+Swift 中有个神奇的精子符号：`~>` 。定义是这个样子的：
+
+    func ~><T : _ForwardIndexType>(start: T, rest: (_Advance, T.Distance)) -> T
+    func ~><T : _ForwardIndexType>(start: T, rest: (_Advance, (T.Distance, T))) -> T
+    func ~><T : _BidirectionalIndexType>(start: T, rest: (_Advance, T.Distance)) -> T
+    func ~><T : _BidirectionalIndexType>(start: T, rest: (_Advance, (T.Distance, T))) -> T
+    func ~><T : _RandomAccessIndexType>(start: T, rest: (_Advance, (T.Distance))) -> T
+    func ~><T : _RandomAccessIndexType>(start: T, rest: (_Advance, (T.Distance, T))) -> T
+    func ~><T : _RandomAccessIndexType>(start: T, rest: (_Distance, (T))) -> T.Distance
+    func ~><T : _ForwardIndexType>(start: T, rest: (_Distance, T)) -> T.Distance
+
+我们可以这样调用：
+
+    let advanceBy5 = _advance(5)    // (_Advance, Int)
+    1~>advanceBy5   // 6
 
 
 
