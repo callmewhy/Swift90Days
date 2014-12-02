@@ -187,6 +187,9 @@ Swift 中有个神奇的精子符号：`~>` 。定义是这个样子的：
     let advanceBy5 = _advance(5)    // (_Advance, Int)
     1~>advanceBy5   // 6
 
+后来搜到了这篇文章：[Tilde Arrow in Swift](http://andelf.github.io/blog/2014/06/25/tilde-arrow-in-swift/)。
+
+嗯看的我瞬间崩溃了完全看不懂。献上膝盖下午慢慢看。。。
 
 
 *** 
@@ -195,3 +198,4 @@ Swift 中有个神奇的精子符号：`~>` 。定义是这个样子的：
 
 - [A pure Swift method for returning ranges of a String instance](http://sketchytech.blogspot.com/2014/08/swift-pure-swift-method-for-returning.html)
 - [A Look At Swift's Elusive ~> Operator](http://natecook.com/blog/2014/11/swifts-elusive-tilde-gt-operator/?utm_campaign=This_Week_in_Swift_19&utm_medium=email&utm_source=This%2BWeek%2Bin%2BSwift)
+- [Swift Standard Library](http://andelf.github.io/blog/2014/06/06/swift-standard-library/)
