@@ -149,7 +149,7 @@ Swift 的初始化过程十分严格，刚从 OC 转过来的同仁可能习惯�
 
 坑爹啊不是，这个属性居然是只读的！
 
-我们只好把属性设置成 `let` 的可选类型，并且把初始化放到了 `viewDidLoad` 里面：
+我们只好把属性设置成 `var` 的可选类型，并且把初始化放到了 `viewDidLoad` 里面：
 
     class ViewController: UIViewController {
         private var animator: UIDynamicAnimator?
