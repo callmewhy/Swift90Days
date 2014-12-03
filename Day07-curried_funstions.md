@@ -1,4 +1,4 @@
-# Swift 中的柯里化
+# [Swift90Days](https://github.com/callmewhy/Swift90Days) - Swift 中的柯里化
 
 新手上路的学习笔记，如有错误还望指出，不胜感激。
 
