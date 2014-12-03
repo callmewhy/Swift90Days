@@ -192,3 +192,7 @@
 - [String reference guide for Swift](http://www.learnswiftonline.com/reference-guides/string-reference-guide-for-swift/)
 - [Swift version of componentsSeparatedByString](http://stackoverflow.com/questions/25226940/swift-version-of-componentsseparatedbystring)
 - [Strings in Swift](http://oleb.net/blog/2014/07/swift-strings/)
+- [Swift: Using String Ranges The Functional Way](http://natashatherobot.com/swift-string-ranges-the-functional/)
+- [How To Find A Substring In Range of a Swift String](http://natashatherobot.com/swift-string-substringinrange/)
+- [How do you use String.substringWithRange?](http://stackoverflow.com/questions/24044851/how-do-you-use-string-substringwithrange-or-how-do-ranges-work-in-swift)
+- [Swift: Cocoaphobia](http://ericasadun.com/2014/06/17/swift-cocoaphobia/)
