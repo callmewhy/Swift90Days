@@ -102,6 +102,63 @@
     john = nil
 
 
+## 综合案例
+
+或许前面两个例子看了还有些晕乎：到底什么时候用弱引用什么时候用无主引用啊！
+
+请看这个例子：
+
+
+    import UIKit
+
+    class FilePickerController : UIViewController {
+        var onDidPickFileWithPath : ((path : String) -> ())?
+    }
+
+    class DocumentViewController : UIViewController {
+        var filePicker: FilePickerController?
+        var content: String?
+        
+        init(fileAtURL URL: NSURL) {
+            super.init(nibName: nil, bundle: nil)
+            
+            var request = NSURLRequest(URL: URL)
+            
+            // weak：这里使用弱引用，因为异步请求结束了可能 self 已经销毁了
+            NSURLConnection.sendAsynchronousRequest(request, queue: nil) { [weak self]
+                (response, data, error) in
+                if let actualSelf = self {
+                    // Captures an owning reference "actualSelf" so interacting with it in this
+                    // block is safe
+                    actualSelf.content = NSString(data: data, encoding: NSUTF8StringEncoding)
+                }
+            }
+        }
+
+        required init(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func presentFilePicker() {
+            if (filePicker == nil) {
+                filePicker = FilePickerController();
+                
+                // unowned: 这里用无主引用，因为进行这个操作的时候 self 不可能为 nil
+                filePicker!.onDidPickFileWithPath = { [unowned self]
+                    (path: String) in
+                    self.content = NSString(contentsOfFile:path, encoding: NSUTF8StringEncoding, error: nil)
+                    
+                }
+            }
+            
+            self.presentViewController(filePicker!, animated: true, completion: nil)
+        }
+    }
+
+上面代码中的两个例子是两个比较常见的场景：异步状态下，回调的闭包调用的时候 `self` 可能已经被设置成 `nil` 了，比如 pop 了之类的，这个时候可以用 `weak` ，然后通过可选绑定进行解包。而另一种情况下，由于是 `presentViewController` 弹出视图，所以回调的时候 `self` 一定是不为 `nil` 的，这种时候可以用 `unowned` (真难拼，老写错了。。)。
+
+
+
 ## 闭包中的循环强引用
 
 解决闭包和类实例之间的循环强引用可以通过定义捕获列表来实现。
@@ -159,3 +216,4 @@
 ## References
 
 - [Automatic Reference Counting](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
+- [7 Cool Features in Swift](http://www.drewag.me/posts/7-cool-features-in-swift#enumeration-cases-can-hold-values)
