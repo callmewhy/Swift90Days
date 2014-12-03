@@ -4,6 +4,21 @@
 
 Swift 中的相关值有点像是 F# 中的 [Discriminated Unions](http://msdn.microsoft.com/en-us/library/dd233226.aspx)，它允许在枚举中存储额外的数据。
 
+比如这样一个网络请求结构体，`POST` 是枚举类型，不过可以存储额外的 String 用来存放参数：
+
+    struct NetRequest {
+        enum Method {
+            case GET
+            case POST(String)
+        }
+
+        var URL: String
+        var method: Method
+    }
+
+    var getRequest = NetRequest(URL: "http://drewag.me", method: .GET)
+    var postRequest = NetRequest(URL: "http://drewag.me", method: .POST("{\"username\": \"drewag\"}"))
+
 比如下面这个 Barcode 的例子。枚举类中定义了两种条形码，一种是普通的条形码 `UPCA` ，存储四个 Int 值；另一种是二维码 `QRCode` ，存储一个字符串的值：
 
     enum Barcode {
@@ -69,6 +84,19 @@ Swift 中的相关值有点像是 F# 中的 [Discriminated Unions](http://msdn.m
     println(possibleNum1 == possibleNum2) // true
 
 
+可选类型就是相关值应用的最好的例子：
+
+    enum Optional {
+        case None
+        case Some(T)
+    }
+
+可以试一下：
+
+    var a: String?
+    a = "a" // {Some "a"}
+    a == .None  // false
+    a == .Some("a") // true
 
 
 
@@ -143,3 +171,4 @@ Swift 中的相关值有点像是 F# 中的 [Discriminated Unions](http://msdn.m
 - [How to test equality of Swift enums with associated values](http://stackoverflow.com/questions/24339807/how-to-test-equality-of-swift-enums-with-associated-values)
 - [How to enumerate an enum with String type?](http://stackoverflow.com/questions/24007461/how-to-enumerate-an-enum-with-string-type)
 - [Replace Magic Strings with Enumerations in Swift](http://www.andrewcbancroft.com/2014/09/02/replace-magic-strings-with-enumerations-in-swift/)
+- [What is an Optional in Swift](http://www.drewag.me/posts/what-is-an-optional-in-swift)
