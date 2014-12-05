@@ -64,7 +64,7 @@
             </objects>
             <point key="canvasLocation" x="602" y="341"/>
         </scene>
-        <!--Races View Controller-->
+        <!--Title-->
         <scene sceneID="LmY-cm-d56">
             <objects>
                 <viewController storyboardIdentifier="RacesViewController" id="pbe-iV-HsB" customClass="RacesViewController" customModule="BirdsCatsDogs" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,7 +73,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ULP-3S-qhe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nPI-Yd-QOH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-SL-K5m">
@@ -102,6 +102,17 @@
                             <constraint firstAttribute="centerY" secondItem="d5I-SL-K5m" secondAttribute="centerY" id="pPB-rC-39p"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="7Hb-bR-k5a">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9q7-Ig-yJX">
+                            <connections>
+                                <action selector="didTapAdd" destination="pbe-iV-HsB" id="Eoi-2c-mxA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="myTableView" destination="d5I-SL-K5m" id="LhO-u3-mnR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZ9-6o-Cd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

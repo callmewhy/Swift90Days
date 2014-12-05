@@ -35,7 +35,6 @@ class DataManager {
         }
     }
 
-
     struct Static {
         static var onceToken : dispatch_once_t = 0
         static var instance : DataManager? = nil
@@ -47,4 +46,40 @@ class DataManager {
         }
         return Static.instance!
     }
+    
+    func saveData() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setValue(species, forKey: "species")
+    }
+    
+    func addRace(species inSpecies: String, race: String) {
+        if var races = species[inSpecies] {
+            races.append(race)
+            species[inSpecies] = races
+        }
+        
+        saveData()
+    }
+    
+    func removeRace(species inSpecies: String, race inRace: String) {
+        if var races = species[inSpecies] {
+            var index = -1
+            
+            for (idx, race) in enumerate(races) {
+                if race == inRace {
+                    index = idx
+                    break
+                }
+            }
+            
+            if index != -1 {
+                races.removeAtIndex(index)
+                species[inSpecies] = races
+                saveData()
+            }
+            
+        }
+    }
+
+
 }

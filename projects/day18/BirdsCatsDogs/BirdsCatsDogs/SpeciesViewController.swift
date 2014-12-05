@@ -22,6 +22,8 @@ class SpeciesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: - UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("SpeciesCell") as UITableViewCell
         cell.textLabel?.text = species[indexPath.row]
@@ -38,6 +40,5 @@ class SpeciesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return species.count
     }
-
 }
 

@@ -156,6 +156,12 @@ Tips：类似于单例模式这种可能会多次用到的代码片段，建议�
 这时再测试一下，点击 cell 之后会跳转到另一个表格列表里。
 
 
+## 小休
+
+下一章会补全，可以直接看原文地址。
+
+完整代码地址：[BirdsCatsDogs](https://github.com/callmewhy/Swift90Days/tree/master/projects/day18/BirdsCatsDogs)
+
 
 
 *** 

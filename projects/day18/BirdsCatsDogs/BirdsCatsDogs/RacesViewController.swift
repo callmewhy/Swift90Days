@@ -8,10 +8,11 @@
 
 import UIKit
 
-class RacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate {
+    
+    @IBOutlet weak var myTableView: UITableView!
     
     var species: String!
-    
     var races: [String] {
         return DataManager.sharedInstance.species[species]!
     }
@@ -26,6 +27,14 @@ class RacesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func didTapAdd() {
+        var alert = UIAlertView(title: "New Race", message: "Type in a new race", delegate: self,
+            cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
+        alert.alertViewStyle = UIAlertViewStyle.PlainTextInput
+        alert.show()
+    }
+    
+    // MARK: - UITableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return races.count
     }
@@ -36,4 +45,26 @@ class RacesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        var raceToRemove = races[indexPath.row]
+        DataManager.sharedInstance.removeRace(species: species, race: raceToRemove)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
+    
+    // MARK: - UIAlertView
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            var textField = alertView.textFieldAtIndex(0)!
+            var newRace = textField.text
+            DataManager.sharedInstance.addRace(species: species, race: newRace)
+            var newIndexPath = NSIndexPath(forRow: races.count - 1, inSection: 0)
+            myTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
 }
