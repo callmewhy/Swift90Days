@@ -118,6 +118,42 @@
 
 大概就是这样，引用中放了另一个类似的项目供大家参考。这个项目与 Swift 无关，不过实现的思路可以借鉴。
 
+我的具体代码在需求上有些不同，不过原理相同，也贴一下：
+
+    // 计算header的高度，应该为 原始高度+偏移量
+    float headerHeight = kHeadViewHeight + _scrollViewOffSetY;
+
+    // 实际高度应为最小值和计算值的较大数
+    self.height = MAX(headerHeight,kHeadViewMinHeight);
+    
+    // 调整大头像位置
+    float imageViewShowHeight = kHeadViewHeight + MAX(_scrollViewOffSetY,0);
+    self.bigPortraitImageview.centerY = imageViewShowHeight/2;
+    self.cameraBt.bottom = self.height - 10;
+
+    // 临界高度差
+    float keyOffsetHeight = kHeadViewMinHeight - kHeadViewHeight;
+    
+    // 上推
+    if (_scrollViewOffSetY < 0) {
+        
+        float absOffsetValue = MIN(abs(keyOffsetHeight),abs(_scrollViewOffSetY));
+        float radioValue = absOffsetValue / abs(keyOffsetHeight);
+        // 设置虚化效果
+        self.blurValue = radioValue * 0.8;
+        self.bigPortraitImageview.image = [self.bigImage drn_boxblurImageWithBlur:self.blurValue];
+        // 设置小头像
+        self.smallPortraitImageView.alpha = radioValue;
+    }
+    
+    // 下拉
+    else {
+        self.smallPortraitImageView.alpha = 0;
+        self.blurValue = 0;
+        self.bigPortraitImageview.image = [self.bigImage drn_boxblurImageWithBlur:self.blurValue];
+    }
+
+
 
 *** 
 
