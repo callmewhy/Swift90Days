@@ -566,4 +566,4 @@ API 的使用者完全不知道这内部的业务逻辑有多么复杂。当我�
 
 原文链接：
 
--[Introducing iOS Design Patterns in Swift – Part 1/2](http://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1)
+- [Introducing iOS Design Patterns in Swift – Part 1/2](http://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1)
