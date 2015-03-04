@@ -802,4 +802,4 @@
 
 原文链接：
 
--[Introducing iOS Design Patterns in Swift – Part 2/2](http://www.raywenderlich.com/90773/introducing-ios-design-patterns-in-swift-part-2)
+- [Introducing iOS Design Patterns in Swift – Part 2/2](http://www.raywenderlich.com/90773/introducing-ios-design-patterns-in-swift-part-2)
